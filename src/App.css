@@ -1,0 +1,118 @@
+@import url('https://fonts.googleapis.com/css2?family=Work+Sans:wght@100..900&display=swap');
+
+/* Box sizing rules */
+*,
+*::before,
+*::after {
+  box-sizing: border-box;
+}
+
+/* Remove default margin */
+body,
+h1,
+h2,
+h3,
+h4,
+p {
+  margin: 0;
+}
+
+/* Set body defaults */
+body {
+  line-height: 1.5;
+  font-family: 'Work Sans', sans-serif;
+  font-weight: 400;
+  font-size: 1.25rem;
+
+  /* center demo content on the screen */
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+
+  background: #fff8dc;
+}
+
+/* Make images easier to work with */
+img,
+picture {
+  max-width: 100%;
+  display: block;
+}
+
+/* Inherit fonts for inputs and buttons */
+input,
+button,
+textarea,
+select {
+  font: inherit;
+}
+
+h1 {
+  margin: 40px;
+}
+
+.calculator {
+  border: 1px solid black;
+  border-radius: 5px;
+  width: 360px;
+  background: #656e77;
+  background: #4682b4;
+}
+
+.calc-keys {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+}
+
+.calc-display {
+  width: 100%;
+  text-align: right;
+  padding-right: 10px;
+  padding-left: 10px;
+}
+
+.flex {
+  display: flex;
+  justify-content: flex-end;
+}
+
+.all-clear {
+  width: 80px;
+  background: pink;
+}
+
+.all-clear:hover {
+  background: #f08080;
+}
+
+.operator {
+  background: #48d1cc;
+}
+
+.operator:hover {
+  background: #20b2aa;
+}
+
+button {
+  border-radius: 5px;
+  margin: 5px 5px;
+}
+
+.number-decimal {
+  background: beige;
+}
+
+.number-decimal:hover {
+  background: #f0e68c;
+}
+
+.equal-sign {
+  background: #f5deb3;
+}
+
+.equal-sign:hover {
+  background: sandybrown;
+  background: #ffe4c4;
+}
