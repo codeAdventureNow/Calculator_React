@@ -44,13 +44,15 @@ function App() {
     setEqualsClicked(true);
     // let value = event.target.dataset.num;
 
+    //What would be the react version of display.value to target the input?
+    //  const display = document.querySelector('.calc-display');
     // if (display.value === '') {
     //   display.value = '';
     // } else {
     //   let answer = eval(display.value);
     //   display.value = answer;
     //   setEqualsClicked(true);
-    //   // console.log(hasEqualsBeenClicked);
+
     // }
   }
 
