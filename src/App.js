@@ -45,7 +45,9 @@ function App() {
         <input
           type='text'
           className='calc-display'
-          value={leftOperand}
+          value={`${leftOperand}${operatorClicked ? operator : ''}${
+            operatorClicked ? rightOperand : ''
+          }`}
           disabled
         />
         <div className='flex'>
@@ -95,7 +97,16 @@ function App() {
           >
             9
           </button>
-          <button type='button' className='button operator' data-num='/'>
+          <button
+            onClick={
+              !operatorClicked
+                ? handleLeftOperandClick
+                : handleRightOperandClick
+            }
+            type='button'
+            className='button operator'
+            data-num='/'
+          >
             &divide;
           </button>
 
@@ -135,7 +146,16 @@ function App() {
           >
             6
           </button>
-          <button type='button' className='button operator' data-num='*'>
+          <button
+            onClick={
+              !operatorClicked
+                ? handleLeftOperandClick
+                : handleRightOperandClick
+            }
+            type='button'
+            className='button operator'
+            data-num='*'
+          >
             &times;
           </button>
 
@@ -202,7 +222,16 @@ function App() {
           <button type='button' className='equal-sign' data-num='='>
             =
           </button>
-          <button type='button' className='button operator' data-num='+'>
+          <button
+            onClick={
+              !operatorClicked
+                ? handleLeftOperandClick
+                : handleRightOperandClick
+            }
+            type='button'
+            className='button operator'
+            data-num='+'
+          >
             +
           </button>
         </div>
