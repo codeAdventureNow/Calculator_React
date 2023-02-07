@@ -6,7 +6,6 @@ function App() {
   const [rightOperand, setRightOperand] = useState(0);
   const [operator, setOperator] = useState();
   const [operatorClicked, setOperatorClicked] = useState(false);
-  const [equalsClicked, setEqualsClicked] = useState(false);
   // const [display, setDisplay] = useState()
 
   function handleLeftOperandClick(event) {
@@ -38,22 +37,6 @@ function App() {
     setOperator(value);
   }
 
-  //JS Version
-  function handleEqualsClick(event) {
-    console.log(event.target.dataset.num);
-    setEqualsClicked(true);
-    // let value = event.target.dataset.num;
-
-    // if (display.value === '') {
-    //   display.value = '';
-    // } else {
-    //   let answer = eval(display.value);
-    //   display.value = answer;
-    //   setEqualsClicked(true);
-    //   // console.log(hasEqualsBeenClicked);
-    // }
-  }
-
   return (
     <div className='App'>
       <h1>Javascript Calculator</h1>
@@ -62,10 +45,8 @@ function App() {
         <input
           type='text'
           className='calc-display'
-          value={`${!equalsClicked && leftOperand}${
-            !equalsClicked && operatorClicked ? operator : ''
-          }${!equalsClicked && operatorClicked ? rightOperand : ''}${
-            equalsClicked ? 'calculate the answer here,clearprior display' : ''
+          value={`${leftOperand}${operatorClicked ? operator : ''}${
+            operatorClicked ? rightOperand : ''
           }`}
           disabled
         />
@@ -238,12 +219,7 @@ function App() {
           <button type='button' className='button decimal' data-num='.'>
             .
           </button>
-          <button
-            onClick={handleEqualsClick}
-            type='button'
-            className='equal-sign'
-            data-num='='
-          >
+          <button type='button' className='equal-sign' data-num='='>
             =
           </button>
           <button
