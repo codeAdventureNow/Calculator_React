@@ -6,6 +6,7 @@ function App() {
   const [rightOperand, setRightOperand] = useState(0);
   const [operator, setOperator] = useState();
   const [operatorClicked, setOperatorClicked] = useState(false);
+  // const [display, setDisplay] = useState()
 
   function handleLeftOperandClick(event) {
     let value = event.target.dataset.num;
@@ -19,6 +20,7 @@ function App() {
 
   function handleRightOperandClick(event) {
     let value = event.target.dataset.num;
+    console.log(value);
 
     if (rightOperand == '0') {
       setRightOperand(value);
@@ -30,6 +32,7 @@ function App() {
 
   function handleOperatorClicked(event) {
     let value = event.target.dataset.num;
+
     setOperatorClicked(true);
     setOperator(value);
   }
@@ -42,11 +45,7 @@ function App() {
         <input
           type='text'
           className='calc-display'
-          value={
-            !operatorClicked
-              ? leftOperand
-              : leftOperand + operator + rightOperand
-          }
+          value={leftOperand}
           disabled
         />
         <div className='flex'>
@@ -62,7 +61,9 @@ function App() {
         <div className='calc-keys'>
           <button
             onClick={
-              operatorClicked ? handleLeftOperandClick : handleRightOperandClick
+              !operatorClicked
+                ? handleLeftOperandClick
+                : handleRightOperandClick
             }
             type='button'
             className='button number'
@@ -72,7 +73,9 @@ function App() {
           </button>
           <button
             onClick={
-              operatorClicked ? handleLeftOperandClick : handleRightOperandClick
+              !operatorClicked
+                ? handleLeftOperandClick
+                : handleRightOperandClick
             }
             type='button'
             className='button number'
@@ -80,33 +83,96 @@ function App() {
           >
             8
           </button>
-          <button type='button' className='button number' data-num='9'>
+          <button
+            onClick={
+              !operatorClicked
+                ? handleLeftOperandClick
+                : handleRightOperandClick
+            }
+            type='button'
+            className='button number'
+            data-num='9'
+          >
             9
           </button>
           <button type='button' className='button operator' data-num='/'>
             &divide;
           </button>
 
-          <button type='button' className='button number' data-num='4'>
+          <button
+            onClick={
+              !operatorClicked
+                ? handleLeftOperandClick
+                : handleRightOperandClick
+            }
+            type='button'
+            className='button number'
+            data-num='4'
+          >
             4
           </button>
-          <button type='button' className='button number' data-num='5'>
+          <button
+            onClick={
+              !operatorClicked
+                ? handleLeftOperandClick
+                : handleRightOperandClick
+            }
+            type='button'
+            className='button number'
+            data-num='5'
+          >
             5
           </button>
-          <button type='button' className='button number' data-num='6'>
+          <button
+            onClick={
+              !operatorClicked
+                ? handleLeftOperandClick
+                : handleRightOperandClick
+            }
+            type='button'
+            className='button number'
+            data-num='6'
+          >
             6
           </button>
           <button type='button' className='button operator' data-num='*'>
             &times;
           </button>
 
-          <button type='button' className='button number' data-num='1'>
+          <button
+            onClick={
+              !operatorClicked
+                ? handleLeftOperandClick
+                : handleRightOperandClick
+            }
+            type='button'
+            className='button number'
+            data-num='1'
+          >
             1
           </button>
-          <button type='button' className='button number' data-num='2'>
+          <button
+            onClick={
+              !operatorClicked
+                ? handleLeftOperandClick
+                : handleRightOperandClick
+            }
+            type='button'
+            className='button number'
+            data-num='2'
+          >
             2
           </button>
-          <button type='button' className='button number' data-num='3'>
+          <button
+            onClick={
+              !operatorClicked
+                ? handleLeftOperandClick
+                : handleRightOperandClick
+            }
+            type='button'
+            className='button number'
+            data-num='3'
+          >
             3
           </button>
           <button
@@ -118,7 +184,16 @@ function App() {
             -
           </button>
 
-          <button type='button' className='button number' data-num='0'>
+          <button
+            onClick={
+              !operatorClicked
+                ? handleLeftOperandClick
+                : handleRightOperandClick
+            }
+            type='button'
+            className='button number'
+            data-num='0'
+          >
             0
           </button>
           <button type='button' className='button decimal' data-num='.'>
