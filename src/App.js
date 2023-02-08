@@ -9,9 +9,13 @@ function App() {
   const [equalsClicked, setEqualsClicked] = useState(false);
   const [calc, setCalc] = useState();
 
+  console.log(equalsClicked);
+
   function handleLeftOperandClick(event) {
     let value = event.target.dataset.num;
     if (equalsClicked) {
+      // setLeftOperand(0);
+      // setRightOperand('');
       setEqualsClicked(false);
     }
     if (leftOperand == '0') {
@@ -23,9 +27,13 @@ function App() {
   console.log(equalsClicked);
   function handleRightOperandClick(event) {
     let value = event.target.dataset.num;
-    console.log(value);
-
-    if (rightOperand == '0') {
+    if (equalsClicked) {
+      setLeftOperand(value);
+      setRightOperand('');
+      setOperator();
+      setOperatorClicked(false);
+      setEqualsClicked(false);
+    } else if (rightOperand == '0') {
       setRightOperand(value);
     } else {
       setRightOperand(rightOperand + value);
