@@ -3,13 +3,14 @@ import { useState } from 'react';
 
 function App() {
   const [leftOperand, setLeftOperand] = useState(0);
-  const [rightOperand, setRightOperand] = useState(0);
+  const [rightOperand, setRightOperand] = useState('');
   const [operator, setOperator] = useState();
   const [operatorClicked, setOperatorClicked] = useState(false);
   const [equalsClicked, setEqualsClicked] = useState(false);
-  // const [display, setDisplay] = useState()
+  const [calc, setCalc] = useState();
 
   function handleLeftOperandClick(event) {
+    setEqualsClicked(false);
     let value = event.target.dataset.num;
 
     if (leftOperand == '0') {
@@ -44,33 +45,41 @@ function App() {
     setEqualsClicked(true);
     // let value = event.target.dataset.num;
 
-    //What would be the react version of display.value to target the input?
-    //  const display = document.querySelector('.calc-display');
-    // if (display.value === '') {
-    //   display.value = '';
-    // } else {
-    //   let answer = eval(display.value);
-    //   display.value = answer;
-    //   setEqualsClicked(true);
-
-    // }
+    // What would be the react version of display.value to target the input?
+    // const display = document.querySelector('.calcDisplay');
+    if (displayCalc === '') {
+      displayCalc = '';
+    } else {
+      let answer = eval(displayCalc);
+      // displayCalc = answer;
+      setCalc(answer);
+    }
   }
+
+  let displayCalc = `${leftOperand}${operatorClicked ? operator : ''}${
+    operatorClicked ? rightOperand : ''
+  }`;
 
   return (
     <div className='App'>
       <h1>Javascript Calculator</h1>
 
       <div className='calculator'>
-        <input
-          type='text'
-          className='calc-display'
-          value={`${!equalsClicked && leftOperand}${
-            !equalsClicked && operatorClicked ? operator : ''
-          }${!equalsClicked && operatorClicked ? rightOperand : ''}${
-            equalsClicked ? 'calculate the answer here,clearprior display' : ''
-          }`}
-          disabled
-        />
+        {!equalsClicked ? (
+          <input
+            type='text'
+            className='calc-display'
+            value={displayCalc}
+            // onChange={handleChange}
+            // onChange={`${leftOperand}${operatorClicked ? operator : ''}${
+            //   operatorClicked ? rightOperand : ''
+            // }`}
+            disabled
+          />
+        ) : (
+          <input type='text' className='calc-display' value={calc} disabled />
+        )}
+
         <div className='flex'>
           <button
             type='button'
