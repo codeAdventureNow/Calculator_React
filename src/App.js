@@ -10,16 +10,17 @@ function App() {
   const [calc, setCalc] = useState();
 
   function handleLeftOperandClick(event) {
-    setEqualsClicked(false);
     let value = event.target.dataset.num;
-
+    if (equalsClicked) {
+      setEqualsClicked(false);
+    }
     if (leftOperand == '0') {
       setLeftOperand(value);
     } else {
       setLeftOperand(leftOperand + value);
     }
   }
-
+  console.log(equalsClicked);
   function handleRightOperandClick(event) {
     let value = event.target.dataset.num;
     console.log(value);
