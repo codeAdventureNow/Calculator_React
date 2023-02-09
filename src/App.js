@@ -11,6 +11,14 @@ function App() {
 
   console.log(equalsClicked);
 
+  function handleClearClick() {
+    setLeftOperand(0);
+    setRightOperand('');
+    setOperator();
+    setOperatorClicked(false);
+    setEqualsClicked(false);
+  }
+
   function handleLeftOperandClick(event) {
     let value = event.target.dataset.num;
     if (equalsClicked) {
@@ -91,6 +99,7 @@ function App() {
 
         <div className='flex'>
           <button
+            onClick={handleClearClick}
             type='button'
             className='all-clear margin'
             value='all-clear function'
@@ -137,11 +146,7 @@ function App() {
             9
           </button>
           <button
-            onClick={
-              !operatorClicked
-                ? handleLeftOperandClick
-                : handleRightOperandClick
-            }
+            onClick={handleOperatorClicked}
             type='button'
             className='button operator'
             data-num='/'
@@ -186,11 +191,7 @@ function App() {
             6
           </button>
           <button
-            onClick={
-              !operatorClicked
-                ? handleLeftOperandClick
-                : handleRightOperandClick
-            }
+            onClick={handleOperatorClicked}
             type='button'
             className='button operator'
             data-num='*'
@@ -267,11 +268,7 @@ function App() {
             =
           </button>
           <button
-            onClick={
-              !operatorClicked
-                ? handleLeftOperandClick
-                : handleRightOperandClick
-            }
+            onClick={handleOperatorClicked}
             type='button'
             className='button operator'
             data-num='+'
