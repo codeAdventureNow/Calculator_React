@@ -91,6 +91,12 @@ function App() {
     if (rightOperand.includes('.')) {
       setRightOperand(rightOperand);
     }
+
+    if (operator) {
+      setLeftOperand(leftOperand);
+      setRightOperand(value);
+    }
+
     if (equalsClicked) {
       setLeftOperand(value);
       setRightOperand('');
