@@ -7,7 +7,7 @@ function App() {
   const [operator, setOperator] = useState();
   const [operatorClicked, setOperatorClicked] = useState(false);
   const [equalsClicked, setEqualsClicked] = useState(false);
-  // const [display, setDisplay] = useState()
+  const [calc, setCalc] = useState();
 
   function handleLeftOperandClick(event) {
     let value = event.target.dataset.num;
@@ -70,20 +70,49 @@ function App() {
     }
   }
 
-  //JS Version
-  function handleEqualsClick(event) {
-    console.log(event.target.dataset.num);
-    setEqualsClicked(true);
-    // let value = event.target.dataset.num;
+  function handleDecimalClick(event) {
+    let value = event.target.dataset.num;
+    if (displayCalc == '0') {
+      setLeftOperand(leftOperand + value);
+    }
 
-    // if (display.value === '') {
-    //   display.value = '';
-    // } else {
-    //   let answer = eval(display.value);
-    //   display.value = answer;
-    //   setEqualsClicked(true);
-    //   // console.log(hasEqualsBeenClicked);
-    // }
+    if (leftOperand) {
+      setLeftOperand(leftOperand + value);
+    }
+    if (rightOperand) {
+      setLeftOperand(leftOperand);
+      setRightOperand(rightOperand + value);
+    }
+
+    if (leftOperand.includes('.')) {
+      setLeftOperand(leftOperand);
+    }
+
+    if (rightOperand.includes('.')) {
+      setRightOperand(rightOperand);
+    }
+
+    if (operator) {
+      setLeftOperand(leftOperand);
+      setRightOperand(value);
+    }
+
+    if (equalsClicked) {
+      setLeftOperand(value);
+      setRightOperand('');
+      setOperator();
+      setOperatorClicked(false);
+      setEqualsClicked(false);
+    }
+  }
+
+  function handleClearClick() {
+    setLeftOperand(0);
+    setRightOperand('');
+    setOperator();
+    setOperatorClicked(false);
+    setEqualsClicked(false);
+    setCalc();
   }
 
   return (
@@ -91,16 +120,17 @@ function App() {
       <h1>Javascript Calculator</h1>
 
       <div className='calculator'>
-        <input
-          type='text'
-          className='calc-display'
-          value={`${!equalsClicked && leftOperand}${
-            !equalsClicked && operatorClicked ? operator : ''
-          }${!equalsClicked && operatorClicked ? rightOperand : ''}${
-            equalsClicked ? 'calculate the answer here,clearprior display' : ''
-          }`}
-          disabled
-        />
+        {!equalsClicked ? (
+          <input
+            type='text'
+            className='calc-display'
+            value={displayCalc}
+            disabled
+          />
+        ) : (
+          <input type='text' className='calc-display' value={calc} disabled />
+        )}
+
         <div className='flex'>
           <button
             onClick={handleClearClick}
@@ -268,7 +298,12 @@ function App() {
           >
             .
           </button>
-          <button type='button' className='equal-sign' data-num='='>
+          <button
+            onClick={handleEqualsClick}
+            type='button'
+            className='equal-sign'
+            data-num='='
+          >
             =
           </button>
           <button
