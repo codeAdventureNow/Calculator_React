@@ -2,117 +2,83 @@ import './App.css';
 import { useState } from 'react';
 
 function App() {
-  const [leftOperand, setLeftOperand] = useState(0);
-  const [rightOperand, setRightOperand] = useState('');
-  const [operator, setOperator] = useState();
-  const [operatorClicked, setOperatorClicked] = useState(false);
+  const [display, setDisplay] = useState(0);
   const [equalsClicked, setEqualsClicked] = useState(false);
-  const [calc, setCalc] = useState();
 
-  function handleLeftOperandClick(event) {
-    let value = event.target.dataset.num;
-    if (equalsClicked) {
-      setEqualsClicked(false);
-    }
-    if (leftOperand == '0') {
-      setLeftOperand(value);
+  function handleEqualsClicked(e) {
+    // let value = e.target.dataset.num;
+
+    //Has equals been clicked
+
+    if (display === '') {
+      setDisplay('');
     } else {
-      setLeftOperand(leftOperand + value);
+      let answer = eval(display);
+      setDisplay(answer);
+      // clearPriorCalulation();
+      setEqualsClicked(true);
     }
   }
 
-  function handleRightOperandClick(event) {
-    let value = event.target.dataset.num;
-    if (equalsClicked) {
-      setLeftOperand(value);
-      setRightOperand('');
-      setOperator();
-      setOperatorClicked(false);
-      setEqualsClicked(false);
-    } else if (rightOperand == '0') {
-      setRightOperand(value);
-    } else {
-      setRightOperand(rightOperand + value);
-    }
-  }
-  // console.log(typeof leftOperand);
-
-  //JS Version
-  function handleEqualsClick(event) {
-    setEqualsClicked(true);
-
-    if (displayCalc === '') {
-      displayCalc = '';
-    } else {
-      let answer = eval(displayCalc);
-
-      setCalc(answer);
-    }
-  }
-
-  let displayCalc = `${leftOperand}${operatorClicked ? operator : ''}${
-    operatorClicked ? rightOperand : ''
-  }`;
-
-  function handleOperatorClicked(event) {
-    let value = event.target.dataset.num;
-
-    setOperatorClicked(true);
-    setOperator(value);
-    if (equalsClicked) {
-      setLeftOperand(calc.toString());
-      setOperatorClicked(true);
-      setOperator(value);
-
-      setRightOperand('');
-
-      setEqualsClicked(false);
-    }
-  }
-
-  function handleDecimalClick(event) {
-    let value = event.target.dataset.num;
-    if (displayCalc == '0') {
-      setLeftOperand(leftOperand + value);
-    }
-
-    if (leftOperand) {
-      setLeftOperand(leftOperand + value);
-    }
-    if (rightOperand) {
-      setLeftOperand(leftOperand);
-      setRightOperand(rightOperand + value);
-    }
-
-    if (leftOperand.includes('.')) {
-      setLeftOperand(leftOperand);
-    }
-
-    if (rightOperand.includes('.')) {
-      setRightOperand(rightOperand);
-    }
-
-    if (operator) {
-      setLeftOperand(leftOperand);
-      setRightOperand(value);
-    }
-
-    if (equalsClicked) {
-      setLeftOperand(value);
-      setRightOperand('');
-      setOperator();
-      setOperatorClicked(false);
-      setEqualsClicked(false);
-    }
-  }
-
-  function handleClearClick() {
-    setLeftOperand(0);
-    setRightOperand('');
-    setOperator();
-    setOperatorClicked(false);
+  function handleClearClicked(e) {
+    setDisplay(0);
     setEqualsClicked(false);
-    setCalc();
+  }
+
+  function handleDecimalClick(e) {
+    let value = e.target.dataset.num;
+    let lastValue = display.charAt(display.length - 1);
+    let stringReplaced = display.slice(0, -1);
+    console.log(display);
+
+    if (display == '0') {
+      setDisplay(value);
+    }
+
+    if (lastValue == '.') {
+      setDisplay(stringReplaced + value);
+    } else if (equalsClicked === true) {
+      setEqualsClicked(false);
+      setDisplay('' + value);
+    } else {
+      // hasEqualsBeenClicked = true;
+      // display.value += value;
+      setDisplay(display + value);
+    }
+  }
+
+  function handleNumberClick(e) {
+    let value = e.target.dataset.num;
+    if (equalsClicked) {
+      setEqualsClicked(false);
+    }
+
+    if (display == '0') {
+      setDisplay(value);
+    } else {
+      setDisplay(display + value);
+    }
+  }
+
+  function handleOperatorClicked(e) {
+    let value = e.target.dataset.num;
+    let lastValue = display.charAt(display.length - 1);
+    let stringReplaced = display.slice(0, -1);
+    if (
+      lastValue == '+' ||
+      lastValue == '-' ||
+      lastValue == '*' ||
+      lastValue == '/'
+    ) {
+      setDisplay(stringReplaced + value);
+      // setEqualsClicked(false);
+
+      // return null;
+    } else {
+      // // hasEqualsBeenClicked = false;
+      // setEqualsClicked(false);
+      setDisplay(display + value);
+    }
   }
 
   return (
@@ -120,20 +86,11 @@ function App() {
       <h1>Javascript Calculator</h1>
 
       <div className='calculator'>
-        {!equalsClicked ? (
-          <input
-            type='text'
-            className='calc-display'
-            value={displayCalc}
-            disabled
-          />
-        ) : (
-          <input type='text' className='calc-display' value={calc} disabled />
-        )}
+        <input type='text' className='calc-display' value={display} disabled />
 
         <div className='flex'>
           <button
-            onClick={handleClearClick}
+            onClick={handleClearClicked}
             type='button'
             className='all-clear margin'
             value='all-clear function'
@@ -144,11 +101,7 @@ function App() {
 
         <div className='calc-keys'>
           <button
-            onClick={
-              !operatorClicked
-                ? handleLeftOperandClick
-                : handleRightOperandClick
-            }
+            onClick={handleNumberClick}
             type='button'
             className='button number'
             data-num='7'
@@ -156,11 +109,7 @@ function App() {
             7
           </button>
           <button
-            onClick={
-              !operatorClicked
-                ? handleLeftOperandClick
-                : handleRightOperandClick
-            }
+            onClick={handleNumberClick}
             type='button'
             className='button number'
             data-num='8'
@@ -168,11 +117,7 @@ function App() {
             8
           </button>
           <button
-            onClick={
-              !operatorClicked
-                ? handleLeftOperandClick
-                : handleRightOperandClick
-            }
+            onClick={handleNumberClick}
             type='button'
             className='button number'
             data-num='9'
@@ -189,11 +134,7 @@ function App() {
           </button>
 
           <button
-            onClick={
-              !operatorClicked
-                ? handleLeftOperandClick
-                : handleRightOperandClick
-            }
+            onClick={handleNumberClick}
             type='button'
             className='button number'
             data-num='4'
@@ -201,11 +142,7 @@ function App() {
             4
           </button>
           <button
-            onClick={
-              !operatorClicked
-                ? handleLeftOperandClick
-                : handleRightOperandClick
-            }
+            onClick={handleNumberClick}
             type='button'
             className='button number'
             data-num='5'
@@ -213,11 +150,7 @@ function App() {
             5
           </button>
           <button
-            onClick={
-              !operatorClicked
-                ? handleLeftOperandClick
-                : handleRightOperandClick
-            }
+            onClick={handleNumberClick}
             type='button'
             className='button number'
             data-num='6'
@@ -234,11 +167,7 @@ function App() {
           </button>
 
           <button
-            onClick={
-              !operatorClicked
-                ? handleLeftOperandClick
-                : handleRightOperandClick
-            }
+            onClick={handleNumberClick}
             type='button'
             className='button number'
             data-num='1'
@@ -246,11 +175,7 @@ function App() {
             1
           </button>
           <button
-            onClick={
-              !operatorClicked
-                ? handleLeftOperandClick
-                : handleRightOperandClick
-            }
+            onClick={handleNumberClick}
             type='button'
             className='button number'
             data-num='2'
@@ -258,11 +183,7 @@ function App() {
             2
           </button>
           <button
-            onClick={
-              !operatorClicked
-                ? handleLeftOperandClick
-                : handleRightOperandClick
-            }
+            onClick={handleNumberClick}
             type='button'
             className='button number'
             data-num='3'
@@ -279,11 +200,7 @@ function App() {
           </button>
 
           <button
-            onClick={
-              !operatorClicked
-                ? handleLeftOperandClick
-                : handleRightOperandClick
-            }
+            onClick={handleNumberClick}
             type='button'
             className='button number'
             data-num='0'
@@ -299,7 +216,7 @@ function App() {
             .
           </button>
           <button
-            onClick={handleEqualsClick}
+            onClick={handleEqualsClicked}
             type='button'
             className='equal-sign'
             data-num='='
