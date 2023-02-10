@@ -75,6 +75,14 @@ function App() {
       setLeftOperand(leftOperand);
       setRightOperand(rightOperand + value);
     }
+
+    if (leftOperand.includes('.')) {
+      setLeftOperand(leftOperand);
+    }
+
+    if (rightOperand.includes('.')) {
+      setRightOperand(rightOperand);
+    }
   }
 
   function handleClearClick() {
