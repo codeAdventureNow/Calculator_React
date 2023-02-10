@@ -81,8 +81,7 @@ function App() {
 
   return (
     <div className='App'>
-      <h1>Javascript Calculator</h1>
-
+      <h1>React Calculator</h1>
       <div className='calculator'>
         <input type='text' className='calc-display' value={display} disabled />
 
