@@ -39,7 +39,6 @@ function App() {
 
   //JS Version
   function handleEqualsClick(event) {
-    console.log(event.target.dataset.num);
     setEqualsClicked(true);
 
     if (displayCalc === '') {
@@ -60,6 +59,15 @@ function App() {
 
     setOperatorClicked(true);
     setOperator(value);
+    if (equalsClicked) {
+      setLeftOperand(calc.toString());
+      setOperatorClicked(true);
+      setOperator(value);
+
+      setRightOperand('');
+
+      setEqualsClicked(false);
+    }
   }
 
   function handleDecimalClick(event) {
@@ -91,6 +99,7 @@ function App() {
     setOperator();
     setOperatorClicked(false);
     setEqualsClicked(false);
+    setCalc();
   }
 
   return (
