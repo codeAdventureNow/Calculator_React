@@ -3,14 +3,17 @@ import { useState } from 'react';
 
 function App() {
   const [leftOperand, setLeftOperand] = useState(0);
-  const [rightOperand, setRightOperand] = useState(0);
+  const [rightOperand, setRightOperand] = useState('');
   const [operator, setOperator] = useState();
   const [operatorClicked, setOperatorClicked] = useState(false);
+  const [equalsClicked, setEqualsClicked] = useState(false);
   // const [display, setDisplay] = useState()
 
   function handleLeftOperandClick(event) {
     let value = event.target.dataset.num;
-
+    if (equalsClicked) {
+      setEqualsClicked(false);
+    }
     if (leftOperand == '0') {
       setLeftOperand(value);
     } else {
@@ -20,9 +23,13 @@ function App() {
 
   function handleRightOperandClick(event) {
     let value = event.target.dataset.num;
-    console.log(value);
-
-    if (rightOperand == '0') {
+    if (equalsClicked) {
+      setLeftOperand(value);
+      setRightOperand('');
+      setOperator();
+      setOperatorClicked(false);
+      setEqualsClicked(false);
+    } else if (rightOperand == '0') {
       setRightOperand(value);
     } else {
       setRightOperand(rightOperand + value);
@@ -30,11 +37,53 @@ function App() {
   }
   // console.log(typeof leftOperand);
 
+  //JS Version
+  function handleEqualsClick(event) {
+    setEqualsClicked(true);
+
+    if (displayCalc === '') {
+      displayCalc = '';
+    } else {
+      let answer = eval(displayCalc);
+
+      setCalc(answer);
+    }
+  }
+
+  let displayCalc = `${leftOperand}${operatorClicked ? operator : ''}${
+    operatorClicked ? rightOperand : ''
+  }`;
+
   function handleOperatorClicked(event) {
     let value = event.target.dataset.num;
 
     setOperatorClicked(true);
     setOperator(value);
+    if (equalsClicked) {
+      setLeftOperand(calc.toString());
+      setOperatorClicked(true);
+      setOperator(value);
+
+      setRightOperand('');
+
+      setEqualsClicked(false);
+    }
+  }
+
+  //JS Version
+  function handleEqualsClick(event) {
+    console.log(event.target.dataset.num);
+    setEqualsClicked(true);
+    // let value = event.target.dataset.num;
+
+    // if (display.value === '') {
+    //   display.value = '';
+    // } else {
+    //   let answer = eval(display.value);
+    //   display.value = answer;
+    //   setEqualsClicked(true);
+    //   // console.log(hasEqualsBeenClicked);
+    // }
   }
 
   return (
@@ -45,13 +94,16 @@ function App() {
         <input
           type='text'
           className='calc-display'
-          value={`${leftOperand}${operatorClicked ? operator : ''}${
-            operatorClicked ? rightOperand : ''
+          value={`${!equalsClicked && leftOperand}${
+            !equalsClicked && operatorClicked ? operator : ''
+          }${!equalsClicked && operatorClicked ? rightOperand : ''}${
+            equalsClicked ? 'calculate the answer here,clearprior display' : ''
           }`}
           disabled
         />
         <div className='flex'>
           <button
+            onClick={handleClearClick}
             type='button'
             className='all-clear margin'
             value='all-clear function'
@@ -98,11 +150,7 @@ function App() {
             9
           </button>
           <button
-            onClick={
-              !operatorClicked
-                ? handleLeftOperandClick
-                : handleRightOperandClick
-            }
+            onClick={handleOperatorClicked}
             type='button'
             className='button operator'
             data-num='/'
@@ -147,11 +195,7 @@ function App() {
             6
           </button>
           <button
-            onClick={
-              !operatorClicked
-                ? handleLeftOperandClick
-                : handleRightOperandClick
-            }
+            onClick={handleOperatorClicked}
             type='button'
             className='button operator'
             data-num='*'
@@ -216,18 +260,19 @@ function App() {
           >
             0
           </button>
-          <button type='button' className='button decimal' data-num='.'>
+          <button
+            onClick={handleDecimalClick}
+            type='button'
+            className='button decimal'
+            data-num='.'
+          >
             .
           </button>
           <button type='button' className='equal-sign' data-num='='>
             =
           </button>
           <button
-            onClick={
-              !operatorClicked
-                ? handleLeftOperandClick
-                : handleRightOperandClick
-            }
+            onClick={handleOperatorClicked}
             type='button'
             className='button operator'
             data-num='+'
