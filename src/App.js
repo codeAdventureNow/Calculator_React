@@ -9,21 +9,9 @@ function App() {
   const [equalsClicked, setEqualsClicked] = useState(false);
   const [calc, setCalc] = useState();
 
-  console.log(equalsClicked);
-
-  function handleClearClick() {
-    setLeftOperand(0);
-    setRightOperand('');
-    setOperator();
-    setOperatorClicked(false);
-    setEqualsClicked(false);
-  }
-
   function handleLeftOperandClick(event) {
     let value = event.target.dataset.num;
     if (equalsClicked) {
-      // setLeftOperand(0);
-      // setRightOperand('');
       setEqualsClicked(false);
     }
     if (leftOperand == '0') {
@@ -32,7 +20,7 @@ function App() {
       setLeftOperand(leftOperand + value);
     }
   }
-  console.log(equalsClicked);
+
   function handleRightOperandClick(event) {
     let value = event.target.dataset.num;
     if (equalsClicked) {
@@ -49,26 +37,16 @@ function App() {
   }
   // console.log(typeof leftOperand);
 
-  function handleOperatorClicked(event) {
-    let value = event.target.dataset.num;
-
-    setOperatorClicked(true);
-    setOperator(value);
-  }
-
   //JS Version
   function handleEqualsClick(event) {
     console.log(event.target.dataset.num);
     setEqualsClicked(true);
-    // let value = event.target.dataset.num;
 
-    // What would be the react version of display.value to target the input?
-    // const display = document.querySelector('.calcDisplay');
     if (displayCalc === '') {
       displayCalc = '';
     } else {
       let answer = eval(displayCalc);
-      // displayCalc = answer;
+
       setCalc(answer);
     }
   }
@@ -76,6 +54,36 @@ function App() {
   let displayCalc = `${leftOperand}${operatorClicked ? operator : ''}${
     operatorClicked ? rightOperand : ''
   }`;
+
+  function handleOperatorClicked(event) {
+    let value = event.target.dataset.num;
+
+    setOperatorClicked(true);
+    setOperator(value);
+  }
+
+  function handleDecimalClick(event) {
+    let value = event.target.dataset.num;
+    if (displayCalc == '0') {
+      setLeftOperand(leftOperand + value);
+    }
+
+    if (leftOperand) {
+      setLeftOperand(leftOperand + value);
+    }
+    if (rightOperand) {
+      setLeftOperand(leftOperand);
+      setRightOperand(rightOperand + value);
+    }
+  }
+
+  function handleClearClick() {
+    setLeftOperand(0);
+    setRightOperand('');
+    setOperator();
+    setOperatorClicked(false);
+    setEqualsClicked(false);
+  }
 
   return (
     <div className='App'>
@@ -87,10 +95,6 @@ function App() {
             type='text'
             className='calc-display'
             value={displayCalc}
-            // onChange={handleChange}
-            // onChange={`${leftOperand}${operatorClicked ? operator : ''}${
-            //   operatorClicked ? rightOperand : ''
-            // }`}
             disabled
           />
         ) : (
@@ -256,7 +260,12 @@ function App() {
           >
             0
           </button>
-          <button type='button' className='button decimal' data-num='.'>
+          <button
+            onClick={handleDecimalClick}
+            type='button'
+            className='button decimal'
+            data-num='.'
+          >
             .
           </button>
           <button
