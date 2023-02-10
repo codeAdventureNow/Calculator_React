@@ -2,59 +2,41 @@ import './App.css';
 import { useState } from 'react';
 
 function App() {
-  const [display, setDisplay] = useState(0);
+  const [display, setDisplay] = useState('0');
   const [equalsClicked, setEqualsClicked] = useState(false);
 
   function handleEqualsClicked(e) {
-    // let value = e.target.dataset.num;
-
-    //Has equals been clicked
-
     if (display === '') {
       setDisplay('');
     } else {
       let answer = eval(display);
       setDisplay(answer);
-      // clearPriorCalulation();
+
       setEqualsClicked(true);
-    }
-  }
-
-  function handleClearClicked(e) {
-    setDisplay(0);
-    setEqualsClicked(false);
-  }
-
-  function handleDecimalClick(e) {
-    let value = e.target.dataset.num;
-    let lastValue = display.charAt(display.length - 1);
-    let stringReplaced = display.slice(0, -1);
-    console.log(display);
-
-    if (display == '0') {
-      setDisplay(value);
-    }
-
-    if (lastValue == '.') {
-      setDisplay(stringReplaced + value);
-    } else if (equalsClicked === true) {
-      setEqualsClicked(false);
-      setDisplay('' + value);
-    } else {
-      // hasEqualsBeenClicked = true;
-      // display.value += value;
-      setDisplay(display + value);
     }
   }
 
   function handleNumberClick(e) {
     let value = e.target.dataset.num;
-    if (equalsClicked) {
-      setEqualsClicked(false);
-    }
+    let thirdtoLastValue = display.toString().charAt(display.length - 2);
 
-    if (display == '0') {
-      setDisplay(value);
+    let stringReplaced = display.toString().slice(0, -1);
+    if (display === '0') {
+      setDisplay('' + value);
+    } else if (
+      thirdtoLastValue == '+' ||
+      thirdtoLastValue == '-' ||
+      thirdtoLastValue == '*' ||
+      thirdtoLastValue == '/'
+    ) {
+      if (display.toString().charAt(display.length - 1) == '0') {
+        setDisplay(stringReplaced + value);
+      } else {
+        setDisplay(display + value);
+      }
+    } else if (equalsClicked === true) {
+      setEqualsClicked(false);
+      setDisplay('' + value);
     } else {
       setDisplay(display + value);
     }
@@ -62,8 +44,8 @@ function App() {
 
   function handleOperatorClicked(e) {
     let value = e.target.dataset.num;
-    let lastValue = display.charAt(display.length - 1);
-    let stringReplaced = display.slice(0, -1);
+    let lastValue = display.toString().charAt(display.length - 1);
+    let stringReplaced = display.toString().slice(0, -1);
     if (
       lastValue == '+' ||
       lastValue == '-' ||
@@ -71,14 +53,30 @@ function App() {
       lastValue == '/'
     ) {
       setDisplay(stringReplaced + value);
-      // setEqualsClicked(false);
-
-      // return null;
     } else {
-      // // hasEqualsBeenClicked = false;
-      // setEqualsClicked(false);
+      setEqualsClicked(false);
       setDisplay(display + value);
     }
+  }
+
+  function handleDecimalClick(e) {
+    let value = e.target.dataset.num;
+    let lastValue = display.toString().charAt(display.length - 1);
+    let stringReplaced = display.toString().slice(0, -1);
+
+    if (lastValue == '.') {
+      setDisplay(stringReplaced + value);
+    } else if (equalsClicked === true) {
+      setEqualsClicked(false);
+      setDisplay('' + value);
+    } else {
+      setDisplay(display + value);
+    }
+  }
+
+  function handleClearClicked() {
+    setDisplay('0');
+    setEqualsClicked(false);
   }
 
   return (
