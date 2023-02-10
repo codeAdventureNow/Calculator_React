@@ -91,6 +91,13 @@ function App() {
     if (rightOperand.includes('.')) {
       setRightOperand(rightOperand);
     }
+    if (equalsClicked) {
+      setLeftOperand(value);
+      setRightOperand('');
+      setOperator();
+      setOperatorClicked(false);
+      setEqualsClicked(false);
+    }
   }
 
   function handleClearClick() {
