@@ -46,6 +46,7 @@ function App() {
     let value = e.target.dataset.num;
     let lastValue = display.toString().charAt(display.length - 1);
     let stringReplaced = display.toString().slice(0, -1);
+
     if (
       lastValue == '+' ||
       lastValue == '-' ||
@@ -53,6 +54,10 @@ function App() {
       lastValue == '/'
     ) {
       setDisplay(stringReplaced + value);
+    } else if (display === '0') {
+      {
+        setDisplay(value);
+      }
     } else {
       setEqualsClicked(false);
       setDisplay(display + value);
