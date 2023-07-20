@@ -1,11 +1,7 @@
 # Calculator  
 <br>
 At the start of this project, I realized my JavaScript logic skills were limited. To level up, my mentor suggested building a vanilla JS calculator. I felt overwhelmed initially, but I decided to start with a simple HTML and CSS design to get things moving.
-</br>
-</br
 Step by step, I faced and conquered challenges along the way. One of my early wins was figuring out how to display numbers on the calculator's screen. It may seem small, but it was a significant milestone for me.
-</br>
-</br
 After completing the calculator in vanilla JS, I didn't stop there. I refactored it into React to improve functionality and maintainability. This decision paid off, giving me a deeper understanding of React's power.
 
 
