@@ -23,7 +23,7 @@ After completing the calculator in vanilla JS, I didn't stop there. I refactored
 
 - How to useState to set the display.
 
-- The application of JavaScript methods charAt, slice, toString..
+- The application of JavaScript methods charAt, slice, toString.
 
 ## Getting Started
 
