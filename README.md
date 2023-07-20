@@ -6,16 +6,16 @@ After completing the calculator in vanilla JS, I didn't stop there. I refactored
 
 
 ## User Stories
-&check;  The page must be fully responsive.
+&check;  I can add, subtract, multiply and divide numbers.
 </br>
 </br>
-&check;  Each idea tile should contain a title and description, which is editable, as well as created/updated time.
+&check;  I can clear the numbers to zero with a button.
 </br>
 </br>
-&check;  New ideas should have the title field focused to prompt the user to begin typing.
+&check;  I can take the previous calculation and add, subtract, multiply, and divide to create a new result.
 </br>
 </br>
-&check;  Add the ability to sort ideas by creation date or alphabetically.
+
 
 
 ## Lessons Learned
