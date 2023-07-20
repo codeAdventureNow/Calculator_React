@@ -7,8 +7,7 @@ Step by step, I faced and conquered challenges along the way. One of my early wi
 </br>
 </br
 After completing the calculator in vanilla JS, I didn't stop there. I refactored it into React to improve functionality and maintainability. This decision paid off, giving me a deeper understanding of React's power.
-</br>
-</br
+
 
 ## User Stories
 &check;  The page must be fully responsive.
