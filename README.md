@@ -19,11 +19,11 @@ After completing the calculator in vanilla JS, I didn't stop there. I refactored
 
 
 ## Lessons Learned
-- How to sort alphabetically and by date.
+- How to use data-sets to receive a value from buttons.
 
-- Adding a character countdown.
+- How to useState to set the display.
 
-- Conditional rendering based on if the user is editing a card.
+- The application of JavaScript methods charAt, slice, toString..
 
 ## Getting Started
 
@@ -32,4 +32,4 @@ After completing the calculator in vanilla JS, I didn't stop there. I refactored
 3.  Go to [http://localhost:3000/
 ](http://localhost:3000/)
 
-Check out the demo of [Idea Board](https://idea-board-2-0.vercel.app/).
+Check out the demo of [Calculator](https://calculator-react-ashen.vercel.app/).
